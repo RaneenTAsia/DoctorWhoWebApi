@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWho.Web", "DoctorWho.Web\DoctorWho.Web.csproj", "{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorWho.Web", "DoctorWho.Web\DoctorWho.Web.csproj", "{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorWho.Db", "..\..\DoctorWhoEFCore\DoctorWho\DoctorWho.Db\DoctorWho.Db.csproj", "{C0ED12D2-8334-440D-8B64-393C62668C48}"
 EndProject

@@ -1,4 +1,4 @@
-﻿using DoctorWhoDomain;
+﻿using DoctorWhoDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,34 +11,37 @@ namespace DoctorWho.Db.Repositories
     public class CompanionRepository
     {
         DoctorWhoDbContext _context = new DoctorWhoDbContext();
-        public void Update(int CompanionId, string CompanionName)
+        public async Task Update(int CompanionId, string CompanionName)
         {
             var companion = _context.Companions.Find(CompanionId);
             if (companion != null)
                 companion.CompanionName = CompanionName;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int CompanionId)
+        public async Task Delete(int CompanionId)
         {
             var author = _context.Companions.Find(CompanionId);
             if (author != null)
-            _context.Companions.Remove(author);
-            _context.SaveChanges();
+            {
+                _context.Companions.Remove(author);
+                await _context.SaveChangesAsync();
+            }
+            throw new KeyNotFoundException();
         }
 
-        public void Add(string CompanionName, string WhoPlayed)
+        public async Task Add(string CompanionName, string WhoPlayed)
         {
             _context.Companions.Add(new Companion { CompanionName = CompanionName, WhoPlayed = WhoPlayed});
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Companion GetCompanionById(int CompanionId)
+        public async Task<Companion?> GetCompanionByIdAsync(int companionId)
         {
-            var companion = _context.Companions.Find(CompanionId);
+            var companion = await _context.Companions.FindAsync(companionId);
 
-            if(companion != null)
-                return _context.Companions.Find(CompanionId);
+            if (companion != null)
+                return companion;
 
                 throw new Exception("Companion Does Not Exist");
             

@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoctorWhoDomain
+namespace DoctorWhoDomain.Models
 {
-    public class Enemy
+    public class EnemyDto
     {
-        public Enemy()
-        {
-            EpisodeEnemies = new List<EpisodeEnemy>();
-        }
         public int EnemyId { get; set; }
         public string? EnemyName { get; set; }
         public string? Description { get; set; }
-        public List<EpisodeEnemy> EpisodeEnemies { get; set; }
+
+        public override string ToString()
+        {
+            return $"EnemyId: {EnemyId} \n EnemyName: {EnemyName}\n Description: {Description}";
+        }
     }
 }

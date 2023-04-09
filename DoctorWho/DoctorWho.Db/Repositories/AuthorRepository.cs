@@ -1,4 +1,7 @@
-﻿using DoctorWhoDomain;
+﻿using DoctorWho.Db.Enums;
+using DoctorWho.Db.Interfaces;
+using DoctorWhoDomain;
+using DoctorWhoDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,29 +11,53 @@ using System.Threading.Tasks;
 
 namespace DoctorWho.Db.Repositories
 {
-    public class AuthorRepository
+    public class AuthorRepository : IAuthorRepository
     {
         DoctorWhoDbContext _context = new DoctorWhoDbContext();
-        public void Update(int AuthorId,string AuthorName)
+        public async Task<Result> UpdateAuthorAsync(int AuthorId, string AuthorName)
         {
-            var author = _context.Authors.Find(AuthorId);
-            if(author != null)
-            author.AuthorName = AuthorName;
-            _context.SaveChanges();
+            var author = await _context.Authors.FindAsync(AuthorId);
+            if (author != null)
+            {
+                author.AuthorName = AuthorName;
+                await _context.SaveChangesAsync();
+                return Result.Completed;
+            }
+            return Result.Failed;
         }
 
-        public void Delete(int AuthorId)
+        public async Task<Result> DeleteAuthorAsync(int AuthorId)
         {
-            var author = _context.Authors.Find(AuthorId);
-            if(author != null)
-            _context.Authors.Remove(author);
-            _context.SaveChanges();
+            var author = await _context.Authors.FindAsync(AuthorId);
+            if (author != null)
+            {
+                _context.Authors.Remove(author);
+                await _context.SaveChangesAsync();
+                return Result.Completed;
+            }
+            return Result.Failed;
         }
 
-        public void Add(string AuthorName)
+        public async Task AddAuthorAsync(string AuthorName)
         {
             _context.Authors.Add(new Author { AuthorName = AuthorName });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task<Author?> GetAuthorByIdAsync(int authorId)
+        {
+            return await _context.Authors.FindAsync(authorId);
+        }
+
+        public async Task<bool> AuthorExistsAsync(int authorId)
+        {
+            return await _context.Authors.AnyAsync(a => a.AuthorId == authorId);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

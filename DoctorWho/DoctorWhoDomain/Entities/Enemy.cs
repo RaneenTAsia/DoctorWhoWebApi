@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoctorWhoDomain
+namespace DoctorWhoDomain.Entities
 {
-    public class Author
+    public class Enemy
     {
-        public Author()
+        public Enemy()
         {
             Episodes = new List<Episode>();
         }
-
-        public int AuthorId { get; set; }
-        public string? AuthorName { get; set; }
+        public int EnemyId { get; set; }
+        public string? EnemyName { get; set; }
+        public string? Description { get; set; }
         public List<Episode> Episodes { get; set; }
     }
 }

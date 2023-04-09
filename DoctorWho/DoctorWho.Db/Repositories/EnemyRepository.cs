@@ -1,8 +1,9 @@
-﻿using DoctorWhoDomain;
+﻿using DoctorWhoDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,34 +12,37 @@ namespace DoctorWho.Db.Repositories
     public class EnemyRepository
     {
         DoctorWhoDbContext _context = new DoctorWhoDbContext();
-        public void Update(int EnemyId, string EnemyName, string? Description)
+        public async Task Update(int EnemyId, string EnemyName, string? Description)
         {
-            var enemy = _context.Enemies.Find(EnemyId);
+            var enemy = await _context.Enemies.FindAsync(EnemyId);
             if (enemy != null)
             {
                 enemy.EnemyName = EnemyName;
                 enemy.Description = Description;
+                await _context.SaveChangesAsync();
             }
-            _context.SaveChanges();
+            throw new KeyNotFoundException();
         }
 
-        public void Delete(int EnemyId)
+        public async Task Delete(int EnemyId)
         {
-            var enemy = _context.Enemies.Find(EnemyId);
-            if(enemy != null) 
-            _context.Enemies.Remove(enemy);
-            _context.SaveChanges();
+            var enemy = await _context.Enemies.FindAsync(EnemyId);
+            if (enemy != null)
+            {
+                _context.Enemies.Remove(enemy);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public void Add(string EnemyName, string? Description)
+        public async Task Add(string EnemyName, string? Description)
         {
             _context.Enemies.Add(new Enemy{ EnemyName = EnemyName, Description = Description });
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Enemy GetEnemyById(int EnemyId)
+        public async Task<Enemy?> GetEnemyById(int EnemyId)
         {
-            var enemy = _context.Enemies.Find(EnemyId);
+            var enemy = await _context.Enemies.FindAsync(EnemyId);
 
             if (enemy != null)
                 return enemy;

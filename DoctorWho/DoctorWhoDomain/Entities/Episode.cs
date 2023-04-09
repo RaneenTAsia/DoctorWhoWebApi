@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoctorWhoDomain
+namespace DoctorWhoDomain.Entities
 {
     public class Episode
     {
         public Episode()
         {
-            EpisodeCompanions = new List<EpisodeCompanion>();
-            EpisodeEnemies = new List<EpisodeEnemy>();
+            Companions = new List<Companion>();
+            Enemies = new List<Enemy>();
         }
         public int EpisodeId { get; set; }
         public int SeriesNumber { get; set; }
@@ -25,8 +25,8 @@ namespace DoctorWhoDomain
         public Doctor Doctor { get; set; }
         public int DoctorId { get; set; }
         public string Notes { get; set; }
-        public List<EpisodeCompanion> EpisodeCompanions { get; set; }
-        public List<EpisodeEnemy> EpisodeEnemies { get; set; }
+        public List<Companion> Companions { get; set; }
+        public List<Enemy> Enemies { get; set; }
 
     }
 }

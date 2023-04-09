@@ -1,4 +1,7 @@
-﻿using DoctorWhoDomain;
+﻿using DoctorWho.Db.Enums;
+using DoctorWho.Db.Interfaces;
+using DoctorWhoDomain.Entities;
+using DoctorWhoDomain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,48 +11,71 @@ using System.Threading.Tasks;
 
 namespace DoctorWho.Db.Repositories
 {
-    public class DoctorRepository
+    public class DoctorRepository : IDoctorRepository
     {
         DoctorWhoDbContext _context = new DoctorWhoDbContext();
-        public void Update(int DoctorId, int DoctorNumber, string? DoctorName, DateTime? BirthDate, DateTime? FirstEpisodeDate, DateTime? LastEpisodeDate)
+        public async Task<(Doctor, Result)> UpdateDoctorAsync( Doctor doctor)
         {
-            var doctor = _context.Doctors.Find(DoctorId);
-            if (doctor != null) {
-                doctor.DoctorNumber = DoctorNumber;
-                doctor.DoctorName = DoctorName;
-                doctor.BirthDate = BirthDate;
-                doctor.FirstEpisodeDate = FirstEpisodeDate;
-                doctor.LastEpisodeDate = LastEpisodeDate;
+            var doctorToUpdate = await _context.Doctors.FindAsync(doctor.DoctorId);
+
+            if (doctorToUpdate != null)
+            {
+                doctorToUpdate.DoctorNumber = doctor.DoctorNumber;
+                doctorToUpdate.DoctorName = doctor.DoctorName;
+                doctorToUpdate.BirthDate = doctor.BirthDate;
+                doctorToUpdate.FirstEpisodeDate = doctor.FirstEpisodeDate;
+                doctorToUpdate.LastEpisodeDate = doctor.LastEpisodeDate;
             }
 
-            _context.SaveChanges();
+            var status = await _context.SaveChangesAsync();
+            return (doctorToUpdate, Result.Completed);
         }
 
-        public void Delete(int DoctorId)
+        public async Task<Result> DeleteDoctorAsync(int doctorId)
         {
-            var doctor = _context.Doctors.Find(DoctorId);
-            if (doctor != null) 
+            var doctor =await _context.Doctors.FindAsync(doctorId);
+
             _context.Doctors.Remove(doctor);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            
+
+            if (await _context.Doctors.AnyAsync(d => d.DoctorId == doctorId))
+            {
+                return Result.Failed;
+            }
+
+            return Result.Completed;
         }
 
-        public void Add( int DoctorNumber, string? DoctorName, DateTime? BirthDate, DateTime? FirstEpisodeDate, DateTime? LastEpisodeDate)
+        public async Task<(Doctor,Result)> AddDoctorAsync(Doctor doctor)
         {
-            var doctor = new Doctor {
-            DoctorNumber = DoctorNumber,
-            DoctorName = DoctorName,
-            BirthDate = BirthDate,
-            FirstEpisodeDate = FirstEpisodeDate,
-            LastEpisodeDate = LastEpisodeDate
-            };
-
             _context.Doctors.Add(doctor);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            if(!(await _context.Doctors.AnyAsync(d => d.DoctorId == doctor.DoctorId)))
+            {
+                return (doctor,Result.Failed);
+            }
+
+            return (doctor, Result.Completed);
         }
 
-        public List<Doctor> GetAllDoctors()
+        public async Task<(IEnumerable<Doctor>,PaginationMetadata)> GetAllDoctorsAsync(int pageNumber, int pageSize)
         {
-           return _context.Doctors.ToList();
+            var doctorCollection = _context.Doctors.AsNoTracking();
+
+            var totalItemCount = await doctorCollection.CountAsync();
+
+            var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+            var doctorCollectionToReturn = await doctorCollection.OrderBy(d => d.DoctorNumber).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync();
+
+            return (doctorCollectionToReturn, paginationMetadata);
+        }
+
+        public async Task<bool> DoctorExistsAsync(int doctorId)
+        {
+            return await _context.Doctors.AnyAsync(d => d.DoctorId == doctorId);
         }
     }
 }
