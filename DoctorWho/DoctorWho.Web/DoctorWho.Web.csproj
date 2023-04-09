@@ -10,4 +10,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DoctorWhoEFCore\DoctorWho\DoctorWho.Db\DoctorWho.Db.csproj" />
+    <ProjectReference Include="..\..\..\DoctorWhoEFCore\DoctorWho\DoctorWhoDomain\DoctorWhoDomain.csproj" />
+  </ItemGroup>
+
 </Project>

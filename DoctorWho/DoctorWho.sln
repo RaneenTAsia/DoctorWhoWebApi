@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWho.Web", "DoctorWho.Web\DoctorWho.Web.csproj", "{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorWho.Db", "..\..\DoctorWhoEFCore\DoctorWho\DoctorWho.Db\DoctorWho.Db.csproj", "{C0ED12D2-8334-440D-8B64-393C62668C48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorWhoDomain", "..\..\DoctorWhoEFCore\DoctorWho\DoctorWhoDomain\DoctorWhoDomain.csproj", "{45BBF5C2-123F-42B9-8D21-F921167C175A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A1442BE-3B9C-4906-A30E-8EA2D995ECA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0ED12D2-8334-440D-8B64-393C62668C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0ED12D2-8334-440D-8B64-393C62668C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0ED12D2-8334-440D-8B64-393C62668C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0ED12D2-8334-440D-8B64-393C62668C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BBF5C2-123F-42B9-8D21-F921167C175A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45BBF5C2-123F-42B9-8D21-F921167C175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45BBF5C2-123F-42B9-8D21-F921167C175A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45BBF5C2-123F-42B9-8D21-F921167C175A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
