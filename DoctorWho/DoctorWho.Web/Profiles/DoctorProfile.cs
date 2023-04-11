@@ -8,6 +8,7 @@ namespace DoctorWho.Web.Profiles
         public DoctorProfile()
         {
             CreateMap<DoctorWhoDomain.Entities.Doctor, DoctorWhoDomain.Models.DoctorDto>();
+            CreateMap<DoctorWhoDomain.Models.DoctorDto, DoctorWhoDomain.Entities.Doctor>();
         }
     }
 }

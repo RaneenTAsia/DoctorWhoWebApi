@@ -1,6 +1,6 @@
 # DoctorWhoWebApi
 
-##Introduction
+## Introduction
 Salam,
 This repository contains a project called DoctorWhoWebApi that uses Asp.Net Core to query and manipulate data from a database by utilizing Web Apis that provide endpoints.  The project is used to challenge interns of their knowledge of Asp.Net Core Web Apis that they have carefully learned along their internship, such as controllers, Dtos, AutoMappers, Fluent Validation, and more.
 
@@ -41,13 +41,13 @@ For each of the next APIs:
 10. Create a controller for the authors with an `Update` API for the authors.
 11. Move DB connection string out of the DbContext to `AppSettings.json`.
 
-##Further Topics
+## Further Topics
 
-1. Minimal Apis
+1. Minimal APIs
 2. Making RESTful web APIs
 3. Platform Independence
 4. Service evolution
 
-##Author
+## Author
 
 This project was made by [Raneen Asia](https://github.com/RaneenTAsia)

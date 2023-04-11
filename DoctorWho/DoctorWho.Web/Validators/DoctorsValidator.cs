@@ -12,6 +12,9 @@ namespace DoctorWho.Db.Validators
     {
         public DoctorsValidator() 
         {
+            RuleFor(doctor => doctor.DoctorNumber)
+               .NotEmpty();
+
             RuleFor(doctor => doctor.DoctorName)
                 .NotEmpty()
                 .MaximumLength(30);
