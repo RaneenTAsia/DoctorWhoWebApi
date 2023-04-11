@@ -42,7 +42,7 @@ namespace DoctorWho.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Upsert([FromBody]DoctorDto doctor)
+        public async Task<ActionResult> UpsertDoctor([FromBody]DoctorDto doctor)
         {
 
             var doctorExistsInCollection = await _doctorRepository.DoctorExistsAsync(doctor.DoctorId);
@@ -54,17 +54,34 @@ namespace DoctorWho.Web.Controllers
 
             if (doctorExistsInCollection)
             {
-               (doctorUpserted,result) = await _doctorRepository.UpdateAsync( doctorToBeUpserted);
+               (doctorUpserted,result) = await _doctorRepository.UpdateDoctorAsync( doctorToBeUpserted);
             }
             else
             {
-                (doctorUpserted,result) = await _doctorRepository.AddAsync(doctorToBeUpserted);
+                (doctorUpserted,result) = await _doctorRepository.AddDoctorAsync(doctorToBeUpserted);
             }
 
             var finalDoctor = _mapper.Map<DoctorDto>(doctorUpserted);
 
             if (result == Result.Completed)
             return Ok(finalDoctor);
+
+            return StatusCode(409);
+        }
+
+        [HttpDelete("{doctorId}")]
+        public async Task<ActionResult> DeleteDoctor(int doctorId)
+        {
+            var doctorExists = await _doctorRepository.DoctorExistsAsync(doctorId);
+
+            if (!doctorExists)
+            {
+                return NotFound();
+            }
+            var result = await _doctorRepository.DeleteDoctorAsync(doctorId);
+
+            if(result == Result.Completed)
+            return Ok();
 
             return StatusCode(409);
         }
