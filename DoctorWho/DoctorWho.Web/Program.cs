@@ -45,6 +45,7 @@ builder.Services.AddDbContext<DoctorWhoDbContext>(DbContextOptions => DbContextO
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
 
 var app = builder.Build();
 

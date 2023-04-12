@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DoctorWhoDomain;
+using DoctorWhoDomain.Entities;
+using DoctorWhoDomain.Models;
 
 namespace DoctorWho.Web.Profiles
 {
@@ -7,8 +9,8 @@ namespace DoctorWho.Web.Profiles
     {
         public DoctorProfile()
         {
-            CreateMap<DoctorWhoDomain.Entities.Doctor, DoctorWhoDomain.Models.DoctorDto>();
-            CreateMap<DoctorWhoDomain.Models.DoctorDto, DoctorWhoDomain.Entities.Doctor>();
+            CreateMap<Doctor, DoctorDto>();
+            CreateMap<DoctorDto, Doctor>();
         }
     }
 }
