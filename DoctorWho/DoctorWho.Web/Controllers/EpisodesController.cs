@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using DoctorWho.Db.Enums;
 using DoctorWho.Db.Interfaces;
+using DoctorWhoDomain.Entities;
 using DoctorWhoDomain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,5 +37,19 @@ namespace DoctorWho.Web.Controllers
 
             return Ok(_mapper.Map<IEnumerable<EpisodeDto>>(episodes));
         }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateEpisode(EpisodeForCreationDto episode)
+        {
+            var episodeToBeCreated= _mapper.Map<Episode>(episode);
+
+            var (doctorCreated, result) = await _episodeRepository.AddEpisodeAsync(episodeToBeCreated);
+
+            if(result == Result.Completed)
+            return Ok($"EpisodeId: {doctorCreated.EpisodeId}");
+
+            return StatusCode(409);
+
+        } 
     }
 }

@@ -4,6 +4,7 @@ using DoctorWho.Db;
 using DoctorWho.Db.Interfaces;
 using DoctorWho.Db.Repositories;
 using DoctorWho.Db.Validators;
+using DoctorWho.Web.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.StaticFiles;
@@ -37,6 +38,7 @@ builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
 //Because AddFluentValidator is depracated
 builder.Services.AddValidatorsFromAssemblyContaining<DoctorsValidator>(); // register validators
+builder.Services.AddValidatorsFromAssemblyContaining<EpisodeValidator>();
 builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
 builder.Services.AddFluentValidationClientsideAdapters(); // for client side
 
