@@ -46,7 +46,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<AuthorValidator>();
 builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
 builder.Services.AddFluentValidationClientsideAdapters(); // for client side
 
-builder.Services.AddDbContext<DoctorWhoDbContext>(DbContextOptions => DbContextOptions.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore"));
+builder.Services.AddDbContext<DoctorWhoDbContext>(DbContextOptions => DbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:DoctorWhoDbConnectionString"]));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
