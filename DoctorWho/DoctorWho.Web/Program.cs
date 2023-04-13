@@ -41,6 +41,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<DoctorsValidator>(); // reg
 builder.Services.AddValidatorsFromAssemblyContaining<EpisodeValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<EnemyValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CompanionValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AuthorValidator>();
+
 builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
 builder.Services.AddFluentValidationClientsideAdapters(); // for client side
 
@@ -50,6 +52,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IEpisodeRepository, EpisodeRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 var app = builder.Build();
 
