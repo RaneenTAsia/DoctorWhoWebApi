@@ -52,7 +52,7 @@ namespace DoctorWho.Web.Controllers
 
         }
 
-        [HttpPost("{episodeId}")]
+        [HttpPost("{episodeId}/enemies")]
         public async Task<ActionResult> AddEnemyToEpisode(int episodeId, [FromBody]EnemyForCreationDto enemy)
         {
             var episodeExists = await _episodeRepository.EpisodeExistsAsync(episodeId);
@@ -66,8 +66,30 @@ namespace DoctorWho.Web.Controllers
             var (foundEpisodeId, enemyCreated, result) = await _episodeRepository.AddEnemyToEpisodeAsync(episodeId, targetEnemy);
 
             var enemyToReturn = _mapper.Map<EnemyDto>(enemyCreated);
+
             if(result == Result.Completed)
                 return Ok($"EpisodeId: {foundEpisodeId},\nEnemy:\n {enemyToReturn.ToString()}");
+
+            return StatusCode(409);
+        }
+
+        [HttpPost("{episodeId}/companions")]
+        public async Task<ActionResult> AddCompanionToEpisode(int episodeId, [FromBody] CompanionForCreationDto companion)
+        {
+            var episodeExists = await _episodeRepository.EpisodeExistsAsync(episodeId);
+            if (!episodeExists)
+            {
+                return NotFound();
+            }
+
+            var targetCompanion = _mapper.Map<Companion>(companion);
+
+            var (foundEpisodeId, companionCreated, result) = await _episodeRepository.AddCompanionToEpisodeAsync(episodeId, targetCompanion);
+
+            var companionToReturn = _mapper.Map<CompanionDto>(companionCreated);
+
+            if (result == Result.Completed)
+                return Ok($"EpisodeId: {foundEpisodeId},\nCompanion:\n {companionToReturn.ToString()}");
 
             return StatusCode(409);
         }

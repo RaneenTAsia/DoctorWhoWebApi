@@ -40,6 +40,7 @@ builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 builder.Services.AddValidatorsFromAssemblyContaining<DoctorsValidator>(); // register validators
 builder.Services.AddValidatorsFromAssemblyContaining<EpisodeValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<EnemyValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CompanionValidator>();
 builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
 builder.Services.AddFluentValidationClientsideAdapters(); // for client side
 
