@@ -16,8 +16,8 @@ namespace DoctorWho.Web.Validators
                 .WithMessage("DoctorId is required");
 
             RuleFor(e => e.SeriesNumber)
-                .Equal(13)
-                .WithMessage("SeriesNumber must be than 13");
+                .GreaterThan(0)
+                .WithMessage("SeriesNumber must be greater than 0");
 
             RuleFor(e => e.EpisodeNumber)
                 .GreaterThan(0)

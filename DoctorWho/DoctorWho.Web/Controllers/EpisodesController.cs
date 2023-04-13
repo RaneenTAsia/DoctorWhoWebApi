@@ -50,6 +50,26 @@ namespace DoctorWho.Web.Controllers
 
             return StatusCode(409);
 
-        } 
+        }
+
+        [HttpPost("{episodeId}")]
+        public async Task<ActionResult> AddEnemyToEpisode(int episodeId, [FromBody]EnemyForCreationDto enemy)
+        {
+            var episodeExists = await _episodeRepository.EpisodeExistsAsync(episodeId);
+            if (!episodeExists)
+            {
+                return NotFound();
+            }
+
+            var targetEnemy = _mapper.Map<Enemy>(enemy);
+
+            var (foundEpisodeId, enemyCreated, result) = await _episodeRepository.AddEnemyToEpisodeAsync(episodeId, targetEnemy);
+
+            var enemyToReturn = _mapper.Map<EnemyDto>(enemyCreated);
+            if(result == Result.Completed)
+                return Ok($"EpisodeId: {foundEpisodeId},\nEnemy:\n {enemyToReturn.ToString()}");
+
+            return StatusCode(409);
+        }
     }
 }
