@@ -40,7 +40,7 @@ namespace DoctorWho.Db.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Enemy?> GetEnemyById(int EnemyId)
+        public async Task<Enemy> GetEnemyById(int EnemyId)
         {
             var enemy = await _context.Enemies.FindAsync(EnemyId);
 

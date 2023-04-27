@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DoctorWhoEFCore\DoctorWho\DoctorWho.Db\DoctorWho.Db.csproj" />
-    <ProjectReference Include="..\..\..\DoctorWhoEFCore\DoctorWho\DoctorWhoDomain\DoctorWhoDomain.csproj" />
+    <ProjectReference Include="..\DoctorWho.Db\DoctorWho.Db.csproj" />
+    <ProjectReference Include="..\DoctorWhoDomain\DoctorWhoDomain.csproj" />
   </ItemGroup>
 
 </Project>

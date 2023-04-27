@@ -1,6 +1,5 @@
 ﻿using DoctorWho.Db.Enums;
 using DoctorWho.Db.Interfaces;
-using DoctorWhoDomain;
 using DoctorWhoDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -58,6 +57,11 @@ namespace DoctorWho.Db.Repositories
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        Task<Author?> IAuthorRepository.GetAuthorByIdAsync(int authorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
